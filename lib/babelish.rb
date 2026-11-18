@@ -28,7 +28,8 @@ require "babelish/language"
 # when installed from a git source. It is only needed for Google Drive access.
 begin
   require "babelish/keys"
-rescue LoadError
+rescue LoadError => e
+  raise unless e.path == "babelish/keys"
 end
 require "babelish/google_doc"
 
