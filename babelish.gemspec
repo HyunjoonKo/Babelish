@@ -29,6 +29,10 @@ Gem::Specification.new do |s|
   s.add_dependency "rack", ">= 1.6.11"
   # json support
   s.add_dependency "json"
+  # csv is required by babelish and is no longer a default gem since Ruby 3.4
+  s.add_dependency "csv"
+  # logger is required by google-apis-core without declaring it, no longer a default gem since Ruby 4.0
+  s.add_dependency "logger"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "test-unit"
