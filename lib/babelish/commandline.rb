@@ -177,12 +177,14 @@ class Commandline < Thor
     true
   end
 
-  private
-
-  def options
-    original_options = super
-    return original_options unless File.exist?(original_options["config"])
-    defaults = ::YAML.load_file(original_options["config"]) || {}
-    Thor::CoreExt::HashWithIndifferentAccess.new(defaults.merge(original_options))
+  # Since Thor 1.1, Shell#say calls `base.options` publicly (quiet? check),
+  # so this override must stay public. no_tasks keeps it from becoming a command.
+  no_tasks do
+    def options
+      original_options = super
+      return original_options unless File.exist?(original_options["config"])
+      defaults = ::YAML.load_file(original_options["config"]) || {}
+      Thor::CoreExt::HashWithIndifferentAccess.new(defaults.merge(original_options))
+    end
   end
 end
